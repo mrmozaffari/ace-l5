@@ -1,11 +1,11 @@
 import yaml
 import pyeapi
 
-file = open('vlans.yml','r')
+vlan_dict = dict()
+with open('vlans.yml', 'r') as f:
+    vlan_dict = yaml.safe_load(f)
+
 config = pyeapi.load_config('eapi.conf')
-print(config)
-vlan_dict = yaml.safe_load(file)
-#print(vlan_dict)
 
 for switch in vlan_dict['switches']:
     print(f"Connecting to {switch}")

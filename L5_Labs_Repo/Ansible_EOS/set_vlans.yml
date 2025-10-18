@@ -1,0 +1,13 @@
+- name: Set Vlans
+  hosts: leafs
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Set Vlans on the Switches
+      arista.eos.eos_vlans:
+        config:
+          - vlan_id: 100
+            name: Ben
+            state: active
+        state: merged
+

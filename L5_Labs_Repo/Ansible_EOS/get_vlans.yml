@@ -1,0 +1,13 @@
+- name: Get Vlans
+  hosts: leafs
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Get Configured Vlans
+      arista.eos.eos_vlans:
+        state: gathered
+      register: vlan_info
+
+    - name: Display gathered VLANs (clean output)
+      ansible.builtin.debug:
+        msg: "{{ vlan_info.gathered }}"

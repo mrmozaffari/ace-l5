@@ -1,0 +1,23 @@
+- name: Playbook for uploading configlets to CloudVision
+  hosts: cvp1
+  vars_files:
+    - ../vars/CVP_model.yml
+  tasks:
+
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "{{ path }}"
+
+    - name: Load configlet content
+      set_fact:
+        MLAG_Left_cfg: "{{ lookup('file', path + '/configlets/MLAG_Left.cfg') }}"
+        MLAG_Right_cfg: "{{ lookup('file', path + '/configlets/MLAG_Right.cfg') }}"
+        
+    - name: Upload configlets
+      arista.cvp.cv_configlet_v3:
+        configlets:
+          Alias_test: "alias ship show ip interface brief"
+          MLAG_Left: "{{ MLAG_Left_cfg }}"
+          MLAG_Right: "{{ MLAG_Right_cfg }}"
+          state: present
+

@@ -1,0 +1,11 @@
+- name: Set Banner
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Set banner on the switches
+      arista.eos.eos_config:
+        lines:
+          - "This is the banner"
+          - EOF
+        parents: banner login

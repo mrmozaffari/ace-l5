@@ -6,8 +6,9 @@
     - name: Set Vlans on the Switches
       arista.eos.eos_vlans:
         config:
-          - vlan_id: 100
-            name: Ben
+          - vlan_id: "{{ item }}"
+            name: "Ben{{ item }}"
             state: active
         state: merged
+      loop: "{{ vlan_id }}"
 
